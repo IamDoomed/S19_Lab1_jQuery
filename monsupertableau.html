@@ -503,6 +503,62 @@
         </tfoot>
     </table>
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+let clickElements = [];
+let elements = document.getElementsByTagName("tr");
+
+for(let i = 0;i<elements.length;i++){
+    let element = elements[i];
+    element.addEventListener("click", function(event){
+        let target = this;
+        let targetIndex = clickElements.indexOf(target);
+        if(targetIndex === -1){
+            // target.style.backgroundColor="lightblue";
+            // target.style.fontWeight = "900";
+            changeStyle(target, "lightblue", 900, "1px solid #888");
+            clickElements.push(target);
+            refreshSelectionText(clickElements.length);
+        }
+        else{
+            // target.style.backgroundColor="white";
+            // target.style.fontWeight = "500";
+            changeStyle(target, "white", 500, "1px solid #888");
+            clickElements.splice(targetIndex,1);
+            refreshSelectionText(clickElements.length);
+        }
+    });
+
+    element.addEventListener("mouseover", function(event){
+        element.style.border = "1px solid #888";
+    });
+    element.addEventListener("mouseout", function(event){
+        element.style.border = "";
+    });
+};
+
+function refreshSelectionText(count){
+    let selectionText = document.getElementById("selection");
+    if(clickElements.length > 1)
+                selectionText.innerText = clickElements.length+" éléments sélectionnés";
+            else
+                selectionText.innerText = clickElements.length+" élément sélectionné";
+};
+
+function changeStyle(element, backgroundColor, fontWeight, border){
+    if(backgroundColor != null){
+        element.style.backgroundColor = backgroundColor;
+    }
+    if(fontWeight != null){
+        element.style.fontWeight = fontWeight;
+    }
+    if(border != null){
+        element.style.border = border;
+    }
+};
+
+
+</script>
 
 
 </body>
